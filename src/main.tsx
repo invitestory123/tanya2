@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {createRoot} from 'react-dom/client';
-import {motion, useReducedMotion, useScroll, useTransform} from 'motion/react';
-import {CalendarBlank, MapPin, SpeakerHigh, SpeakerSlash, ArrowDown, Sparkle, Heart} from '@phosphor-icons/react';
+import React, { useEffect, useRef, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { CalendarBlank, MapPin, SpeakerHigh, SpeakerSlash, ArrowDown, Sparkle, Heart } from '@phosphor-icons/react';
 import gsap from 'gsap';
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './styles.css';
 
 // Wedding Date: Lagan & Sagai starts 20 November 2026 at 7:00 AM
@@ -45,44 +45,44 @@ const events = [
   },
 ];
 
-function Reveal({children, className=''}:{children:React.ReactNode,className?:string}){
-  const reduce=useReducedMotion();
+function Reveal({ children, className = '' }: { children: React.ReactNode, className?: string }) {
+  const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={reduce?false:{opacity:0,y:28}}
-      whileInView={{opacity:1,y:0}}
-      viewport={{once:true,amount:.15}}
-      transition={{duration:.75,ease:[.16,1,.3,1]}}
+      initial={reduce ? false : { opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: .15 }}
+      transition={{ duration: .75, ease: [.16, 1, .3, 1] }}
     >
       {children}
     </motion.div>
   );
 }
 
-function Countdown(){
-  const [now,setNow]=useState(Date.now());
-  useEffect(()=>{const id=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(id)},[]);
-  const diff=Math.max(0,WEDDING_START.getTime()-now);
-  const values=[Math.floor(diff/86400000),Math.floor(diff/3600000)%24,Math.floor(diff/60000)%60,Math.floor(diff/1000)%60];
+function Countdown() {
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => { const id = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(id) }, []);
+  const diff = Math.max(0, WEDDING_START.getTime() - now);
+  const values = [Math.floor(diff / 86400000), Math.floor(diff / 3600000) % 24, Math.floor(diff / 60000) % 60, Math.floor(diff / 1000) % 60];
   return (
     <div className="countdown">
-      {values.map((v,i)=>(
+      {values.map((v, i) => (
         <div className="count-unit" key={i}>
           <div className="flip">
-            <motion.span key={v} initial={{rotateX:-75,opacity:0}} animate={{rotateX:0,opacity:1}}>
-              {String(v).padStart(2,'0')}
+            <motion.span key={v} initial={{ rotateX: -75, opacity: 0 }} animate={{ rotateX: 0, opacity: 1 }}>
+              {String(v).padStart(2, '0')}
             </motion.span>
           </div>
-          <small>{['days','hours','mins','secs'][i]}</small>
+          <small>{['days', 'hours', 'mins', 'secs'][i]}</small>
         </div>
       ))}
     </div>
   );
 }
 
-function addCalendar(){
-  const body=[
+function addCalendar() {
+  const body = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'BEGIN:VEVENT',
@@ -94,60 +94,60 @@ function addCalendar(){
     'END:VEVENT',
     'END:VCALENDAR'
   ].join('\r\n');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([body],{type:'text/calendar'}));
-  a.download='tanya-abhishek-wedding.ics';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([body], { type: 'text/calendar' }));
+  a.download = 'tanya-abhishek-wedding.ics';
   a.click();
   URL.revokeObjectURL(a.href);
 }
 
-function ScratchDate(){
-  const canvas=useRef<HTMLCanvasElement>(null);
-  const [done,setDone]=useState(false);
-  const drawing=useRef(false);
-  const strokes=useRef(0);
+function ScratchDate() {
+  const canvas = useRef<HTMLCanvasElement>(null);
+  const [done, setDone] = useState(false);
+  const drawing = useRef(false);
+  const strokes = useRef(0);
 
-  useEffect(()=>{
-    const c=canvas.current;
-    if(!c)return;
-    const ratio=Math.min(devicePixelRatio,2);
-    const rect=c.getBoundingClientRect();
-    c.width=rect.width*ratio;
-    c.height=rect.height*ratio;
-    const x=c.getContext('2d')!;
-    x.scale(ratio,ratio);
-    const g=x.createLinearGradient(0,0,rect.width,rect.height);
-    g.addColorStop(0,'#d7a94f');
-    g.addColorStop(.5,'#f0d08a');
-    g.addColorStop(1,'#a76d1c');
-    x.fillStyle=g;
-    x.fillRect(0,0,rect.width,rect.height);
-    x.fillStyle='#5a3418';
-    x.textAlign='center';
-    x.font='11px Marcellus, serif';
-    x.fillText('SCRATCH TO REVEAL OUR DATE',rect.width/2,rect.height/2-8);
-    x.font='22px serif';
-    x.fillText('🪷',rect.width/2,rect.height/2+24);
-  },[]);
+  useEffect(() => {
+    const c = canvas.current;
+    if (!c) return;
+    const ratio = Math.min(devicePixelRatio, 2);
+    const rect = c.getBoundingClientRect();
+    c.width = rect.width * ratio;
+    c.height = rect.height * ratio;
+    const x = c.getContext('2d')!;
+    x.scale(ratio, ratio);
+    const g = x.createLinearGradient(0, 0, rect.width, rect.height);
+    g.addColorStop(0, '#d7a94f');
+    g.addColorStop(.5, '#f0d08a');
+    g.addColorStop(1, '#a76d1c');
+    x.fillStyle = g;
+    x.fillRect(0, 0, rect.width, rect.height);
+    x.fillStyle = '#5a3418';
+    x.textAlign = 'center';
+    x.font = '11px Marcellus, serif';
+    x.fillText('SCRATCH TO REVEAL OUR DATE', rect.width / 2, rect.height / 2 - 8);
+    x.font = '22px serif';
+    x.fillText('🪷', rect.width / 2, rect.height / 2 + 24);
+  }, []);
 
-  const scratch=(e:React.PointerEvent<HTMLCanvasElement>)=>{
-    if(!drawing.current||done)return;
-    const c=canvas.current!,r=c.getBoundingClientRect(),x=c.getContext('2d')!;
-    x.globalCompositeOperation='destination-out';
+  const scratch = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!drawing.current || done) return;
+    const c = canvas.current!, r = c.getBoundingClientRect(), x = c.getContext('2d')!;
+    x.globalCompositeOperation = 'destination-out';
     x.beginPath();
-    x.arc(e.clientX-r.left,e.clientY-r.top,24,0,Math.PI*2);
+    x.arc(e.clientX - r.left, e.clientY - r.top, 24, 0, Math.PI * 2);
     x.fill();
-    if(++strokes.current>38){
+    if (++strokes.current > 38) {
       setDone(true);
-      c.style.opacity='0';
+      c.style.opacity = '0';
       navigator.vibrate?.(35);
     }
   };
 
   return (
-    <section className={'scratch-section '+(done?'revealed':'')}>
+    <section className={'scratch-section ' + (done ? 'revealed' : '')}>
       <div className="float-field" aria-hidden="true">
-        {Array.from({length:12},(_,i)=><i key={i} style={{'--i':i} as React.CSSProperties}>❀</i>)}
+        {Array.from({ length: 12 }, (_, i) => <i key={i} style={{ '--i': i } as React.CSSProperties}>❀</i>)}
       </div>
       <Reveal>
         <p className="script">Save our date</p>
@@ -161,20 +161,20 @@ function ScratchDate(){
           </div>
           <canvas
             ref={canvas}
-            onPointerDown={e=>{drawing.current=true;e.currentTarget.setPointerCapture(e.pointerId);scratch(e)}}
+            onPointerDown={e => { drawing.current = true; e.currentTarget.setPointerCapture(e.pointerId); scratch(e) }}
             onPointerMove={scratch}
-            onPointerUp={()=>drawing.current=false}
-            onPointerCancel={()=>drawing.current=false}
+            onPointerUp={() => drawing.current = false}
+            onPointerCancel={() => drawing.current = false}
           />
         </div>
-        <p className="scratch-hint">{done?'We cannot wait to see you in Rishikesh ♡':'Use your finger to uncover the date'}</p>
+        <p className="scratch-hint">{done ? 'We cannot wait to see you in Rishikesh ♡' : 'Use your finger to uncover the date'}</p>
       </Reveal>
     </section>
   );
 }
 
 // 3) Real Looking Hanging Flowers Canopy across top of 1st Page with Slow Breeze Sway Animation
-function RealHangingFlowers(){
+function RealHangingFlowers() {
   return (
     <div className="real-hanging-canopy" aria-hidden="true">
       {/* Top draped foliage swag connecting the garland anchors */}
@@ -237,7 +237,7 @@ function RealHangingFlowers(){
             <g key={y}>
               <circle cx="17" cy={y} r="5.8" fill="url(#jasmineBudGrad)" />
               <ellipse cx="15.5" cy={y - 1.5} rx="2" ry="1.2" fill="#ffffff" opacity="0.8" />
-              <path d={`M14,${y+4} L17,${y+6} L20,${y+4}`} stroke="#3d6526" strokeWidth="1.2" fill="none" />
+              <path d={`M14,${y + 4} L17,${y + 6} L20,${y + 4}`} stroke="#3d6526" strokeWidth="1.2" fill="none" />
             </g>
           ))}
           <g transform="translate(17, 164)">
@@ -327,7 +327,7 @@ function RealHangingFlowers(){
             <g key={y}>
               <circle cx="17" cy={y} r="5.8" fill="url(#jasmineBudGrad)" />
               <ellipse cx="15.5" cy={y - 1.5} rx="2" ry="1.2" fill="#ffffff" opacity="0.8" />
-              <path d={`M14,${y+4} L17,${y+6} L20,${y+4}`} stroke="#3d6526" strokeWidth="1.2" fill="none" />
+              <path d={`M14,${y + 4} L17,${y + 6} L20,${y + 4}`} stroke="#3d6526" strokeWidth="1.2" fill="none" />
             </g>
           ))}
           <g transform="translate(17, 164)">
@@ -361,7 +361,7 @@ function RealHangingFlowers(){
 }
 
 // 1) Cinematic Opener: Clicking plays "vide.mp4", ending transitions into 1st uploaded entrance image
-function RoyalVideoWelcome({onEnter}:{onEnter:()=>void}){
+function RoyalVideoWelcome({ onEnter }: { onEnter: () => void }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFinishing, setIsFinishing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -411,7 +411,7 @@ function RoyalVideoWelcome({onEnter}:{onEnter:()=>void}){
       <div className="gate-ambient-glow" aria-hidden="true" />
 
       <div className="gate-petals-burst" aria-hidden="true">
-        {Array.from({length: 18}, (_, i) => (
+        {Array.from({ length: 18 }, (_, i) => (
           <span key={i} className={`gate-petal petal-${i}`} />
         ))}
       </div>
@@ -463,7 +463,7 @@ function RoyalVideoWelcome({onEnter}:{onEnter:()=>void}){
 }
 
 // 4) Two Paths One Forever replaced with exact replica of 3rd uploaded image (family blessings card)
-function FamilyBlessingCard(){
+function FamilyBlessingCard() {
   return (
     <section className="card-blessing-section">
       <Reveal className="blessing-card-container">
@@ -472,11 +472,11 @@ function FamilyBlessingCard(){
           {/* Top Lotus Motif */}
           <div className="blessing-top-lotus">
             <svg width="42" height="34" viewBox="0 0 48 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 2C24 2 28 12 28 22C28 27.5 25.5 32 24 34C22.5 32 20 27.5 20 22C20 12 24 2 24 2Z" stroke="#966a35" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M24 14C27.5 16 35.5 21 35.5 27.5C35.5 31.5 32.5 34 29 34C26.5 34 24.8 32.5 24 31" stroke="#966a35" strokeWidth="1.5" strokeLinecap="round"/>
-              <path d="M24 14C20.5 16 12.5 21 12.5 27.5C12.5 31.5 15.5 34 19 34C21.5 34 23.2 32.5 24 31" stroke="#966a35" strokeWidth="1.5" strokeLinecap="round"/>
-              <path d="M24 22C29 23.5 41 27.5 41 33C41 35.5 38 36.5 35 36.5C30.5 36.5 26.5 33.5 24 31" stroke="#966a35" strokeWidth="1.4" strokeLinecap="round"/>
-              <path d="M24 22C19 23.5 7 27.5 7 33C7 35.5 10 36.5 13 36.5C17.5 36.5 21.5 33.5 24 31" stroke="#966a35" strokeWidth="1.4" strokeLinecap="round"/>
+              <path d="M24 2C24 2 28 12 28 22C28 27.5 25.5 32 24 34C22.5 32 20 27.5 20 22C20 12 24 2 24 2Z" stroke="#966a35" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M24 14C27.5 16 35.5 21 35.5 27.5C35.5 31.5 32.5 34 29 34C26.5 34 24.8 32.5 24 31" stroke="#966a35" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M24 14C20.5 16 12.5 21 12.5 27.5C12.5 31.5 15.5 34 19 34C21.5 34 23.2 32.5 24 31" stroke="#966a35" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M24 22C29 23.5 41 27.5 41 33C41 35.5 38 36.5 35 36.5C30.5 36.5 26.5 33.5 24 31" stroke="#966a35" strokeWidth="1.4" strokeLinecap="round" />
+              <path d="M24 22C19 23.5 7 27.5 7 33C7 35.5 10 36.5 13 36.5C17.5 36.5 21.5 33.5 24 31" stroke="#966a35" strokeWidth="1.4" strokeLinecap="round" />
             </svg>
           </div>
 
@@ -534,7 +534,7 @@ function FamilyBlessingCard(){
 }
 
 // 6) Last Page: Exact 2nd uploaded image with 3rd uploaded photo in frame, with original celebratory text below
-function LastPageCelebration(){
+function LastPageCelebration() {
   return (
     <footer className="footer-last-page-lux">
       {/* Exact uploaded artwork composite with sunset photo framed and floral accents intact */}
@@ -548,7 +548,7 @@ function LastPageCelebration(){
 
         {/* Floating flower petals */}
         <div className="lux-drifting-petals" aria-hidden="true">
-          {Array.from({length: 12}, (_, i) => (
+          {Array.from({ length: 12 }, (_, i) => (
             <span key={i} className={`lux-petal petal-float-${i}`} />
           ))}
         </div>
@@ -576,11 +576,11 @@ function LastPageCelebration(){
           {/* Golden Lotus emblem */}
           <div className="lux-lotus-seal">
             <svg width="34" height="26" viewBox="0 0 48 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 2C24 2 28 12 28 22C28 27.5 25.5 32 24 34C22.5 32 20 27.5 20 22C20 12 24 2 24 2Z" stroke="#deb572" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M24 14C27.5 16 35.5 21 35.5 27.5C35.5 31.5 32.5 34 29 34C26.5 34 24.8 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round"/>
-              <path d="M24 14C20.5 16 12.5 21 12.5 27.5C12.5 31.5 15.5 34 19 34C21.5 34 23.2 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round"/>
-              <path d="M24 22C29 23.5 41 27.5 41 33C41 35.5 38 36.5 35 36.5C30.5 36.5 26.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round"/>
-              <path d="M24 22C19 23.5 7 27.5 7 33C7 35.5 10 36.5 13 36.5C17.5 36.5 21.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round"/>
+              <path d="M24 2C24 2 28 12 28 22C28 27.5 25.5 32 24 34C22.5 32 20 27.5 20 22C20 12 24 2 24 2Z" stroke="#deb572" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M24 14C27.5 16 35.5 21 35.5 27.5C35.5 31.5 32.5 34 29 34C26.5 34 24.8 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M24 14C20.5 16 12.5 21 12.5 27.5C12.5 31.5 15.5 34 19 34C21.5 34 23.2 32.5 24 31" stroke="#deb572" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M24 22C29 23.5 41 27.5 41 33C41 35.5 38 36.5 35 36.5C30.5 36.5 26.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round" />
+              <path d="M24 22C19 23.5 7 27.5 7 33C7 35.5 10 36.5 13 36.5C17.5 36.5 21.5 33.5 24 31" stroke="#deb572" strokeWidth="1.4" strokeLinecap="round" />
             </svg>
           </div>
 
@@ -610,14 +610,14 @@ function LastPageCelebration(){
   );
 }
 
-function App(){
-  const [entered,setEntered]=useState(false);
-  const [musicPlaying,setMusicPlaying]=useState(false);
-  const audioRef=useRef<HTMLAudioElement>(null);
-  const reduce=useReducedMotion();
-  const {scrollYProgress}=useScroll();
-  const leafY=useTransform(scrollYProgress,[0,1],[0,180]);
-  const page=useRef<HTMLElement>(null);
+function App() {
+  const [entered, setEntered] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const leafY = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const page = useRef<HTMLElement>(null);
 
   const startCelebration = () => {
     setEntered(true);
@@ -642,58 +642,70 @@ function App(){
       audio.pause();
       setMusicPlaying(false);
     } else {
-      audio.play().then(() => setMusicPlaying(true)).catch(() => {});
+      audio.play().then(() => setMusicPlaying(true)).catch(() => { });
     }
   };
 
   // GSAP animations for interactive scroll movements
-  useEffect(()=>{
-    if(reduce||!entered||!page.current)return;
+  useEffect(() => {
+    if (reduce || !entered || !page.current) return;
     gsap.registerPlugin(ScrollTrigger);
-    const ctx=gsap.context(()=>{
-      gsap.fromTo('.hero-copy>*',{opacity:0,y:20},{opacity:1,y:0,duration:1,stagger:.1,ease:'power3.out'});
-      gsap.utils.toArray<HTMLElement>('.event').forEach((el,i)=>gsap.fromTo(el,{opacity:0,x:i%2?-35:35},{opacity:1,x:0,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%',end:'top 58%',scrub:.8}}));
-      gsap.to('.map i',{y:-10,repeat:-1,yoyo:true,duration:1.2,ease:'sine.inOut'});
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.hero-copy>*', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, stagger: .1, ease: 'power3.out' });
+      gsap.utils.toArray<HTMLElement>('.event').forEach((el, i) => gsap.fromTo(el, { opacity: 0, x: i % 2 ? -35 : 35 }, { opacity: 1, x: 0, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 86%', end: 'top 58%', scrub: .8 } }));
+      gsap.to('.map i', { y: -10, repeat: -1, yoyo: true, duration: 1.2, ease: 'sine.inOut' });
 
       // Animated Dynamic Swaying & Floating Lanterns (Requirement 5)
-      gsap.utils.toArray<HTMLElement>('.atmos-lantern').forEach((el,i)=>{
-        const depth=Number(el.dataset.depth||.4);
-        gsap.to(el,{
-          yPercent:-95*depth,
-          x:Math.sin(i*1.8)*24*depth,
-          rotation:i%2?7:-7,
-          ease:'none',
-          scrollTrigger:{
-            trigger:page.current,
-            start:'top top',
-            end:'bottom bottom',
-            scrub:1.1+depth
+      gsap.utils.toArray<HTMLElement>('.atmos-lantern').forEach((el, i) => {
+        const depth = Number(el.dataset.depth || .4);
+        gsap.to(el, {
+          yPercent: -95 * depth,
+          x: Math.sin(i * 1.8) * 24 * depth,
+          rotation: i % 2 ? 7 : -7,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: page.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1.1 + depth
           }
         });
-        gsap.to(el.querySelector('.lantern-flame'),{
-          scaleY:1.22,
-          scaleX:1.12,
-          opacity:.85,
-          repeat:-1,
-          yoyo:true,
-          duration:.65+i*.09,
-          ease:'sine.inOut'
+        gsap.to(el.querySelector('.lantern-flame'), {
+          scaleY: 1.22,
+          scaleX: 1.12,
+          opacity: .85,
+          repeat: -1,
+          yoyo: true,
+          duration: .65 + i * .09,
+          ease: 'sine.inOut'
         });
       });
-    },page);
-    return()=>ctx.revert();
-  },[entered,reduce]);
+    }, page);
+    return () => ctx.revert();
+  }, [entered, reduce]);
 
   return (
     <main ref={page}>
       {/* 8) Background Wedding Audio with Continuous Looping */}
-      <audio ref={audioRef} src="/assets/wedding-music.mp3" loop preload="auto" />
+      <audio
+        ref={audioRef}
+        src="/assets/wedding-music.mp3"
+        loop
+        preload="auto"
+        onEnded={() => {
+          const audio = audioRef.current;
+          if (audio) {
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
+          }
+        }}
+      />
 
       {/* Floating Audio Toggle Button */}
       {entered && (
         <motion.button
-          initial={{opacity:0,scale:0.8}}
-          animate={{opacity:1,scale:1}}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           className={`audio-control-btn ${musicPlaying ? 'is-playing' : ''}`}
           onClick={toggleMusic}
           aria-label={musicPlaying ? 'Mute celebratory music' : 'Play celebratory music'}
@@ -706,38 +718,38 @@ function App(){
         </motion.button>
       )}
 
-      <motion.div className="scroll-progress" style={{scaleX:scrollYProgress}}/>
+      <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} />
 
       {/* 5) Dynamic Moving Animating Lantern Atmosphere with Pendulum Sway */}
       <div className="lantern-atmosphere" aria-hidden="true">
         {[
-          {x:7, y:10, d:.25, s:.68, b:2, sway:4.5},
-          {x:91, y:18, d:.38, s:.82, b:1.2, sway:5.8},
-          {x:10, y:38, d:.72, s:1.08, b:.3, sway:4.0},
-          {x:92, y:52, d:.32, s:.62, b:2.4, sway:6.2},
-          {x:5, y:70, d:1, s:1.35, b:.1, sway:3.8},
-          {x:88, y:82, d:.65, s:.95, b:.7, sway:5.0},
-          {x:48, y:60, d:.20, s:.45, b:3, sway:4.8}
-        ].map((l,i)=>(
+          { x: 7, y: 10, d: .25, s: .68, b: 2, sway: 4.5 },
+          { x: 91, y: 18, d: .38, s: .82, b: 1.2, sway: 5.8 },
+          { x: 10, y: 38, d: .72, s: 1.08, b: .3, sway: 4.0 },
+          { x: 92, y: 52, d: .32, s: .62, b: 2.4, sway: 6.2 },
+          { x: 5, y: 70, d: 1, s: 1.35, b: .1, sway: 3.8 },
+          { x: 88, y: 82, d: .65, s: .95, b: .7, sway: 5.0 },
+          { x: 48, y: 60, d: .20, s: .45, b: 3, sway: 4.8 }
+        ].map((l, i) => (
           <span
             key={i}
             className={`atmos-lantern lantern-swing-${i % 3}`}
             data-depth={l.d}
             style={{
-              left:`${l.x}%`,
-              top:`${l.y}%`,
-              '--scale':l.s,
-              '--blur':`${l.b}px`,
-              '--sway-dur':`${l.sway}s`,
-              '--delay':`${-i*.7}s`
+              left: `${l.x}%`,
+              top: `${l.y}%`,
+              '--scale': l.s,
+              '--blur': `${l.b}px`,
+              '--sway-dur': `${l.sway}s`,
+              '--delay': `${-i * .7}s`
             } as React.CSSProperties}
           >
-            <i className="lantern-chain"/>
-            <i className="lantern-cap"/>
+            <i className="lantern-chain" />
+            <i className="lantern-cap" />
             <i className="lantern-body">
-              <b className="lantern-flame"/>
+              <b className="lantern-flame" />
             </i>
-            <i className="lantern-tail"/>
+            <i className="lantern-tail" />
           </span>
         ))}
       </div>
@@ -763,21 +775,21 @@ function App(){
 
         {/* Falling floral petals floating across hero */}
         <div className="hero-petals-flow" aria-hidden="true">
-          {Array.from({length: 16}, (_, i) => (
+          {Array.from({ length: 16 }, (_, i) => (
             <span key={i} className={`hero-drifting-petal petal-flow-${i}`} />
           ))}
         </div>
 
         <motion.div
           className="hero-copy"
-          initial={{opacity:0,y:22}}
-          animate={{opacity:entered?1:0,y:entered?0:22}}
-          transition={{delay:.15,duration:0.9,ease:[.16,1,.3,1]}}
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: entered ? 1 : 0, y: entered ? 0 : 22 }}
+          transition={{ delay: .15, duration: 0.9, ease: [.16, 1, .3, 1] }}
         >
           <div className="arch-header">
             <span className="arch-lotus-glyph">🪷</span>
             <p className="blessing">TOGETHER WITH OUR FAMILIES</p>
-            <div className="arch-filigree"><span>✦</span><i/><span>✦</span></div>
+            <div className="arch-filigree"><span>✦</span><i /><span>✦</span></div>
           </div>
 
           {/* 
@@ -809,9 +821,9 @@ function App(){
 
           <p className="hero-invite-line">invite you to celebrate our wedding</p>
           <div className="date-rule">
-            <i/>
+            <i />
             <b>20 NOVEMBER 2026</b>
-            <i/>
+            <i />
           </div>
           <p className="hero-destination">Pebbles Resort · Rishikesh</p>
         </motion.div>
@@ -839,11 +851,11 @@ function App(){
           />
         </motion.div>
 
-        <motion.div className="leaf-float left" style={{y:reduce?0:leafY}}/>
-        <motion.div className="leaf-float right" style={{y:reduce?0:leafY}}/>
+        <motion.div className="leaf-float left" style={{ y: reduce ? 0 : leafY }} />
+        <motion.div className="leaf-float right" style={{ y: reduce ? 0 : leafY }} />
 
         <div className="scroll-cue">
-          <ArrowDown size={20}/>
+          <ArrowDown size={20} />
           <span>Our Celebrations</span>
         </div>
       </section>
@@ -853,12 +865,12 @@ function App(){
         <Reveal>
           <p className="kicker">Until the festivities begin</p>
           <h2>Counting every heartbeat</h2>
-          <Countdown/>
+          <Countdown />
         </Reveal>
       </section>
 
       {/* Interactive Scratch-to-reveal Date Section (19 & 20) */}
-      <ScratchDate/>
+      <ScratchDate />
 
       {/* 
         4) Two Paths One Forever replaced with family blessing card page matching 3rd uploaded image
@@ -915,23 +927,23 @@ function App(){
           <p className="section-intro">Three beautiful ceremonies. One unforgettable celebration.</p>
         </Reveal>
         <div className="event-list">
-          {events.map((e,i)=>(
+          {events.map((e, i) => (
             <motion.div
-              className={'event event-vibe-card '+(e.name === 'Shubh Varmala' ? 'featured' : '')}
+              className={'event event-vibe-card ' + (e.name === 'Shubh Varmala' ? 'featured' : '')}
               key={e.name}
-              initial={{opacity: 0, y: 26}}
-              whileInView={{opacity: 1, y: 0}}
-              viewport={{once: true, amount: 0.15}}
-              transition={{delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1]}}
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="event-number">0{i+1}</div>
+              <div className="event-number">0{i + 1}</div>
               <div>
                 <span className="event-icon event-icon-vibe">{e.icon}</span>
                 <h3>{e.name}</h3>
                 <p>{e.note}</p>
                 <dl>
                   <div className="dl-full"><dt>Date</dt><dd>{e.date}</dd></div>
-                  {e.times.map((t, idx)=>(
+                  {e.times.map((t, idx) => (
                     <div key={idx}><dt>{t.label}</dt><dd>{t.time}</dd></div>
                   ))}
                   <div><dt>Venue</dt><dd>{e.venue}</dd></div>
@@ -945,7 +957,7 @@ function App(){
       {/* Venue Section with Rishikesh Google Maps */}
       <section className="venue ornamental">
         <Reveal>
-          <MapPin size={38} weight="thin"/>
+          <MapPin size={38} weight="thin" />
           <p className="script">Meet us in Rishikesh</p>
           <h2>Pebbles Resort</h2>
           <p>Neelkanth Road, Rattapani, Rishikesh, Pauri Garhwal, Uttarakhand</p>
@@ -958,7 +970,7 @@ function App(){
               src="https://www.google.com/maps?q=Pebbles+Resort+Neelkanth+Road+Rattapani+Rishikesh&z=15&output=embed"
             />
             <div className="map-overlay">
-              <span><MapPin size={19} weight="fill"/>Wedding Venue</span>
+              <span><MapPin size={19} weight="fill" />Wedding Venue</span>
               <b>Pebbles Resort · Rishikesh</b>
               <small>Pinch or drag to explore the route</small>
             </div>
@@ -971,10 +983,10 @@ function App(){
               target="_blank"
               rel="noreferrer"
             >
-              <MapPin size={19}/>Open in Google Maps
+              <MapPin size={19} />Open in Google Maps
             </a>
             <button className="button secondary" onClick={addCalendar}>
-              <CalendarBlank size={19}/>Add to Calendar
+              <CalendarBlank size={19} />Add to Calendar
             </button>
           </div>
         </Reveal>
@@ -989,4 +1001,4 @@ function App(){
   );
 }
 
-createRoot(document.getElementById('root')!).render(<App/>);
+createRoot(document.getElementById('root')!).render(<App />);
