@@ -6,43 +6,10 @@ import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import './styles.css';
 
-// Wedding Date: Haldi starts 19 November 2026 at 9:00 AM
-const WEDDING_START = new Date('2026-11-19T09:00:00+05:30');
+// Wedding Date: Lagan & Sagai starts 20 November 2026 at 7:00 AM
+const WEDDING_START = new Date('2026-11-20T07:00:00+05:30');
 
 const events = [
-  {
-    name: 'Haldi',
-    date: 'Thursday, 19 November 2026',
-    times: [
-      { label: 'Breakfast', time: '8:00 AM' },
-      { label: 'Haldi Ceremony', time: '9:00 AM' }
-    ],
-    venue: 'Pebbles Resort, Rishikesh',
-    note: 'Join us for a vibrant celebration of love, laughter, and blessings as we begin the wedding festivities with the joyful hues of Haldi.',
-    icon: '💛'
-  },
-  {
-    name: 'Mehndi',
-    date: 'Thursday, 19 November 2026',
-    times: [
-      { label: 'Mehndi Ceremony', time: '12:00 PM' },
-      { label: 'Lunch', time: '1:00 PM' }
-    ],
-    venue: 'Pebbles Resort, Rishikesh',
-    note: 'An afternoon filled with delicate henna patterns, folk music, laughter, and beautiful memories as we celebrate the joy of togetherness.',
-    icon: '🌿'
-  },
-  {
-    name: 'Ring Ceremony & Sangeet',
-    date: 'Thursday, 19 November 2026',
-    times: [
-      { label: 'Ring Ceremony & Sangeet', time: '5:30 PM' },
-      { label: 'Semi-Gala Dinner', time: '8:30 PM' }
-    ],
-    venue: 'Pebbles Resort, Rishikesh',
-    note: 'An enchanting evening of love, music, dance, and celebration as we exchange rings and begin a beautiful new chapter together.',
-    icon: '💍'
-  },
   {
     name: 'Lagan & Sagai',
     date: 'Friday, 20 November 2026',
@@ -119,11 +86,11 @@ function addCalendar(){
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'BEGIN:VEVENT',
-    'DTSTART:20261119T033000Z',
-    'DTEND:20261120T123000Z',
+    'DTSTART:20261120T013000Z',
+    'DTEND:20261120T130000Z',
     'SUMMARY:Tanya & Abhishek — Wedding Celebration',
     'LOCATION:Pebbles Resort, Neelkanth Road, Rattapani, Rishikesh, Uttarakhand',
-    'DESCRIPTION:Celebrate the wedding ceremonies of Tanya Saini & Abhishek Saini in Rishikesh.',
+    'DESCRIPTION:Celebrate the wedding ceremonies of Tanya Saini & Abhishek Saini on 20 November 2026 in Rishikesh.',
     'END:VEVENT',
     'END:VCALENDAR'
   ].join('\r\n');
@@ -158,7 +125,7 @@ function ScratchDate(){
     x.fillStyle='#5a3418';
     x.textAlign='center';
     x.font='11px Marcellus, serif';
-    x.fillText('SCRATCH TO REVEAL OUR DATES',rect.width/2,rect.height/2-8);
+    x.fillText('SCRATCH TO REVEAL OUR DATE',rect.width/2,rect.height/2-8);
     x.font='22px serif';
     x.fillText('🪷',rect.width/2,rect.height/2+24);
   },[]);
@@ -183,12 +150,12 @@ function ScratchDate(){
         {Array.from({length:12},(_,i)=><i key={i} style={{'--i':i} as React.CSSProperties}>❀</i>)}
       </div>
       <Reveal>
-        <p className="script">Save our dates</p>
+        <p className="script">Save our date</p>
         <h2>A day written in the stars</h2>
         <div className="scratch-card">
           <div className="date-reveal">
-            <small>Thursday & Friday</small>
-            <b>19 & 20</b>
+            <small>Friday</small>
+            <b>20</b>
             <span>November · 2026</span>
             <em>Rishikesh, Uttarakhand</em>
           </div>
@@ -200,7 +167,7 @@ function ScratchDate(){
             onPointerCancel={()=>drawing.current=false}
           />
         </div>
-        <p className="scratch-hint">{done?'We cannot wait to see you in Rishikesh ♡':'Use your finger to uncover the dates'}</p>
+        <p className="scratch-hint">{done?'We cannot wait to see you in Rishikesh ♡':'Use your finger to uncover the date'}</p>
       </Reveal>
     </section>
   );
@@ -477,7 +444,7 @@ function RoyalVideoWelcome({onEnter}:{onEnter:()=>void}){
               Tanya <i>&</i> Abhishek
             </h2>
             <p className="gate-names-details">
-              19 & 20 NOVEMBER 2026 · RISHIKESH
+              20 NOVEMBER 2026 · RISHIKESH
             </p>
           </div>
         </div>
@@ -550,7 +517,7 @@ function FamilyBlessingCard(){
               <span className="diamond-rule" />
             </div>
 
-            <p className="blessing-dates">19–20 NOVEMBER 2026</p>
+            <p className="blessing-dates">20 NOVEMBER 2026</p>
 
             <div className="divider-diamond-line">
               <span className="diamond-rule" />
@@ -617,9 +584,9 @@ function LastPageCelebration(){
             </svg>
           </div>
 
-          {/* Date & Location: 19 & 20 NOVEMBER 2026 · RISHIKESH */}
+          {/* Date & Location: 20 NOVEMBER 2026 · RISHIKESH */}
           <p className="lux-event-date">
-            19 &amp; 20 NOVEMBER 2026 &nbsp;·&nbsp; RISHIKESH
+            20 NOVEMBER 2026 &nbsp;·&nbsp; RISHIKESH
           </p>
 
           {/* Diamond Rule: ─── ✦ ─── */}
@@ -843,7 +810,7 @@ function App(){
           <p className="hero-invite-line">invite you to celebrate our wedding</p>
           <div className="date-rule">
             <i/>
-            <b>19 &amp; 20 NOVEMBER 2026</b>
+            <b>20 NOVEMBER 2026</b>
             <i/>
           </div>
           <p className="hero-destination">Pebbles Resort · Rishikesh</p>
@@ -945,12 +912,12 @@ function App(){
       <section className="events">
         <Reveal>
           <h2>Wedding Festivities</h2>
-          <p className="section-intro">Six beautiful ceremonies. One unforgettable celebration.</p>
+          <p className="section-intro">Three beautiful ceremonies. One unforgettable celebration.</p>
         </Reveal>
         <div className="event-list">
           {events.map((e,i)=>(
             <motion.div
-              className={'event event-vibe-card '+(i===4?'featured':'')}
+              className={'event event-vibe-card '+(e.name === 'Shubh Varmala' ? 'featured' : '')}
               key={e.name}
               initial={{opacity: 0, y: 26}}
               whileInView={{opacity: 1, y: 0}}

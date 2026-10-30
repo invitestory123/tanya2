@@ -76,7 +76,7 @@ async function createOgImage() {
 
         <!-- Date Pill Badge -->
         <rect x="55" y="260" width="380" height="50" rx="25" fill="#ffffff" stroke="#b87b22" stroke-width="1.5" filter="url(#shadow)"/>
-        <text x="245" y="292" font-family="Georgia, serif" font-size="16" font-weight="bold" letter-spacing="3" fill="#3a1d0a" text-anchor="middle">19 – 20 NOVEMBER 2026</text>
+        <text x="245" y="292" font-family="Georgia, serif" font-size="16" font-weight="bold" letter-spacing="3" fill="#3a1d0a" text-anchor="middle">20 NOVEMBER 2026</text>
 
         <!-- Venue & Destination -->
         <text x="245" y="350" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#4a2911" text-anchor="middle">Pebbles Resort · Rishikesh</text>

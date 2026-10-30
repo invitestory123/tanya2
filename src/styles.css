@@ -871,7 +871,7 @@ main {
 }
 
 /* =========================================================
-   SCRATCH-TO-REVEAL DATE SECTION (19 & 20)
+   SCRATCH-TO-REVEAL DATE SECTION (20 NOV)
    ========================================================= */
 .scratch-section {
   position: relative;
@@ -1527,7 +1527,7 @@ main {
    6) LAST PAGE: EXACT 2nd UPLOADED ARTWORK WITH PHOTO & TEXT
    - Exact art canvas with sunset couple photo in vintage lace frame
    - "We cannot wait to celebrate with you" in cursive script
-   - Golden heart divider, lotus seal, 19 & 20 NOVEMBER 2026 · RISHIKESH
+   - Golden heart divider, lotus seal, 20 NOVEMBER 2026 · RISHIKESH
    ========================================================= */
 .footer-last-page-lux {
   position: relative;
@@ -1645,7 +1645,7 @@ main {
   filter: drop-shadow(0 0 8px rgba(255, 215, 120, 0.55));
 }
 
-/* Date & Location: 19 & 20 NOVEMBER 2026 · RISHIKESH */
+/* Date & Location: 20 NOVEMBER 2026 · RISHIKESH */
 .lux-event-date {
   font-family: 'Cinzel', Marcellus, Georgia, serif;
   font-size: clamp(10px, 2.5vw, 13px);
